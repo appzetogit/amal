@@ -158,7 +158,7 @@ export default function DeliveryCMSPage({ endpoint, title: defaultTitle, module 
             
             <p className="mt-12 pt-6 border-t border-gray-100 text-center text-gray-400 text-[10px] uppercase tracking-widest">
               Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} <br />
-              © {new Date().getFullYear()} Minto Foods. All Rights Reserved.
+              © {new Date().getFullYear()} Amal Foods. All Rights Reserved.
             </p>
           </motion.div>
         </div>
