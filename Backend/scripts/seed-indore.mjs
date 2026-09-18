@@ -209,14 +209,18 @@ if (!existingFees) {
     console.log('fees: already configured, left alone');
 }
 
-// ── Categories, shared across the zone ──────────────────────────────────────
+// ── Categories, global ──────────────────────────────────────────────────────
+// Global rather than scoped to the zone: the home rail asks for categories
+// before it knows the customer's zone, and a zone-scoped category is invisible
+// to that request, so the rail came back empty.
 const categoryNames = [...new Set(RESTAURANTS.flatMap((r) => Object.keys(r.menu)))];
 const categories = new Map();
 for (const [index, name] of categoryNames.entries()) {
-    const found = await prisma.foodCategory.findFirst({ where: { name, zoneId: zone.id, restaurantId: null } });
-    const category = found ?? await prisma.foodCategory.create({
-        data: { name, zoneId: zone.id, isApproved: true, approvalStatus: 'approved', isActive: true, sortOrder: index },
-    });
+    const fields = { zoneId: null, isApproved: true, approvalStatus: 'approved', isActive: true, sortOrder: index };
+    const found = await prisma.foodCategory.findFirst({ where: { name, restaurantId: null } });
+    const category = found
+        ? await prisma.foodCategory.update({ where: { id: found.id }, data: fields })
+        : await prisma.foodCategory.create({ data: { name, ...fields } });
     categories.set(name, category);
 }
 console.log(`categories: ${categories.size}`);
