@@ -1939,6 +1939,10 @@ model FoodOffer {
   status     OfferStatus @default(active)
   showInCart Boolean     @default(true)
 
+  /// Card artwork for the customer Offers page. Optional: without one the card
+  /// falls back to the restaurant's photo.
+  imageUrl String @default("")
+
   createdByRole            CreatorRole @default(ADMIN)
   adminBearPercentage      Decimal     @default(100) @db.Decimal(5, 2)
   restaurantBearPercentage Decimal     @default(0) @db.Decimal(5, 2)
