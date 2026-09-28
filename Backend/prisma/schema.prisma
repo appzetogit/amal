@@ -3148,8 +3148,12 @@ model FoodDiningBanner {
 model HomePromotionBanner {
   id String @id @default(dbgenerated("encode(gen_random_bytes(12), 'hex')")) @db.VarChar(24)
 
-  imageUrl String
-  publicId String
+  /// The media URL for both kinds. Keeps its name because the mobile apps
+  /// already read it; `mediaType` says how to render it.
+  imageUrl  String
+  /// "image" (JPEG/PNG/WebP/GIF) or "video" (MP4/WebM).
+  mediaType String @default("image")
+  publicId  String
   title    String?
   ctaLink  String?
 

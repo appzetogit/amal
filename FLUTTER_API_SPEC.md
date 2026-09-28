@@ -153,6 +153,10 @@ All return active-only, ordered lists.
 | GET | `/food/dining/categories/public` | dining categories |
 | GET | `/food/dining/restaurants/public` | dining restaurants |
 
+Home-promotion banners carry `mediaType`: `"image"` (JPEG/PNG/WebP/GIF) or
+`"video"` (MP4/WebM). `imageUrl` holds the media URL in both cases; when
+`mediaType` is `"video"`, render it as a muted, autoplaying video.
+
 ---
 
 ## 5. Discovery (no auth)
